@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<title>Svelte app</title>
+	<script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.0/lib/bundle.min.js"></script>
+
+    <script>
+        let json_data = [
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" }];
+    
+        let df = new dfd.DataFrame(json_data)
+        df.print();
+
+        // DataFrame의 Series의 값을 배열로 넘기면 이 값에 10을 더한 값을 반한한다. 
+        const new_data = (val) => { 
+            return val + "0"; 
+        }
+        // apply(함수명)을 사용한다. 
+        let s = df["A"].apply(new_data); // 함수를 적용한 새로운 시리즈 반환 
+        s.print();  // 시리즈 확인 
+        df = df.addColumn("E", s);  // E 컬럼 추가 
+        df.print(); // 추가된 컬럼 확인 
+        df.ctypes.print();
+
+    </script>
+    
+</head>
+
+
+<body>
+    <h1>04. apply #02</h1>
+</body>
+</html>

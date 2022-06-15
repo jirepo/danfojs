@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+
+	<title>Svelte app</title>
+
+	<link rel='icon' type='image/png' href='/favicon.png'>
+	<script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.0/lib/bundle.min.js"></script>
+</head>
+
+<script>
+    // 문자열을 값으로 가지는 Series를 합치기 
+    // const combine = (s1, s2) => { 
+    //     let s3 = s1.str.concat(' ', 1);
+    //     let s4 = s3.str.concat(s2.values,1);
+    //     //s4.print();
+    //     return s4.values;
+    // }
+    // const combine2 = (s1, s2) => { 
+    //     //console.log(s1.dtype);
+    //     //console.log(s2.dtype);
+    //     let s3 = s1.str.concat('a', 1);
+    //     let s4 = s2.str.concat('a',1);
+    //     let s5 = s4.str.concat(s3.values,1);
+    //     //console.log(s5.dtype);
+    //     //console.log(s5.values);
+    //     let s6 = s5.str.replace("a", " "  );
+    //     let s7 = s6.str.replace("a", " ");
+    //     console.log(s7.values);
+    //     return s7.values; 
+
+    // }
+
+    let json_data = [{ A: 0.4612, B: 4.28283, C: -1.509, D: -1.1352 },
+            { A: 0.5112, B: -0.22863, C: -3.39059, D: 1.1632 },
+            { A: 0.6911, B: -0.82863, C: -1.5059, D: 2.1352 },
+            { A: 0.4692, B: -1.28863, C: 4.5059, D: 4.1632 }];
+
+            
+    let df = new dfd.DataFrame(json_data)
+    // 컬럼의 타입 확인 
+    df.ctypes.print();
+    // A, B 컬럼의 타입을 string으로 변환 
+    df = df.asType("A", "string");
+    df.ctypes.print();  // A 컬럼이 string으로 변환 된 것을 확인할 수 있다. DataFrame을 반환하니까 df를 다시 할당한다. 
+
+//combine(df['A'].values, df['B'].values)
+// type을 float에서 string으로 변환 
+
+//df = df.asType("B", "string");
+//df = df.asType("C", "string");
+//df = df.asType("D", "string");
+
+// 타입 출력 
+df.ctypes.print()
+
+new_data = combine2(df['A'], df['B'])
+df.addColumn('E', new_data, {inplace: true}); 
+
+df.print()
+
+
+
+
+// let json_data = [{ A: 'a', B: 'b', C: 'c', D: 'd' },
+//             { A: 'a', B: 'b', C: 'c', D: 'd' },
+//             { A: 'a', B: 'b', C: 'c', D: 'd' },
+//             { A: 'a', B: 'b', C: 'c', D: 'd' }];
+
+</script>
+
+
+<body>
+</body>
+</html>

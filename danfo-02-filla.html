@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<title>Svelte app</title>
+	<script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.0/lib/bundle.min.js"></script>
+
+    <script>
+        let json_data = [
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" }];
+    
+        let df = new dfd.DataFrame(json_data)
+        df.print();
+        // 컬럼의 타입 확인 
+        df.ctypes.print();
+        
+        // null을 '-'으로 채운다. 
+        df.fillNa('-', { inplace: true });
+        df.print();  // '-'' 값이 채워진 것을 확인할 수 있다.
+    
+    
+        // B 컬럼의 값이 null stirng인 경우 
+        json_data = [
+                { A: "1", B: '', C: "3", D: "4" },
+                { A: "1", B: '', C: "3", D: "4" },
+                { A: "1", B: '', C: "3", D: "4" }];
+    
+                
+        df = new dfd.DataFrame(json_data)
+        df.print();
+        df.fillNa('-', { inplace: true }); 
+        // null string인 경우 값이 채워지지 않는다. 
+        df.print();
+    
+    
+    </script>
+    
+</head>
+
+
+<body>
+    <h1>02. filla</h1>
+</body>
+</html>
