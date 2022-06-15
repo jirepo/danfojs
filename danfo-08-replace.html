@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<title>Svelte app</title>
+	<script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.0/lib/bundle.min.js"></script>
+
+    <script>
+        // map() 함수 먼저 학습 
+        const arr = [ 1,2,3,4,5]; 
+        // acc 누적값 
+        // cur 현재값 
+        // 0은 초기값 
+        let map_result = arr.map( (cur, index, arr_self) => {
+            return  cur + 1; 
+        });
+        // 각 요소에 1을 더한 결과를 반환한다.
+        console.log(map_result); 
+
+        // 주의 : 숫자로만 구성된 문자열 데이터로 DataFrame을 만들면 
+        // DataFrame에서는 int로 인식하지만 
+        // 값 을 꺼내서 사용할 때는 string으로 반환된다. 
+
+        let json_data = [
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" }];
+    
+        let df = new dfd.DataFrame(json_data)
+        df.print();
+        // 1을 바꾸어 보자 
+        df = df.replace("1", "100");
+        df.print();
+        // null을 바꾸는 방법은 없는 것 같음. filla를 사용한다. 
+        // D 열의 "4"를 바꾸어 보자 . 
+        df = df.replace("4", "200", { columns: ["D"] });
+        df.print();
+
+    </script>
+    
+</head>
+
+
+<body>
+    <h1>08. replace  #03</h1>
+</body>
+</html>

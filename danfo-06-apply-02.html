@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<title>Svelte app</title>
+	<script src="https://cdn.jsdelivr.net/npm/danfojs@1.1.0/lib/bundle.min.js"></script>
+
+    <script>
+        // reduce() 함수 먼저 학습 
+        const arr = [ 1,2,3,4,5]; 
+        // acc 누적값 
+        // cur 현재값 
+        // 0은 초기값 
+        let sum = arr.reduce((acc, cur) => {
+            return acc + cur;
+        }, 0);
+        console.log(sum); 
+
+
+        let json_data = [
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" },
+                { A: "1", B: null, C: "3", D: "4" }];
+    
+        let df = new dfd.DataFrame(json_data)
+        df.print();
+        df.ctypes.print();  // (1) 여기서 타입을 확인해 보면 int32, float32로 되어 있는데 
+        
+        const new_data = (arr) => { 
+            console.log(arr);  // axis = 0일때, 값의 배열임 
+            /// [1,1,1], [], [3,3,3], [4,4,4], 이렇게 차례로 배열이 들어온다. 
+            // reduce()를 이용한 합계 계산 
+            let sum = arr.reduce((acc, cur) => {
+                console.log(typeof cur); // 여기서 cur 값을 확인해 보면 string으로 표시된다. 
+                // 그래서 여기서는 합계가 아니라 문자열이 더해 진다. 초기값 0과 함께 
+                // 합계를 구하려면 type변환을 해야 한다. 
+                return acc += Number(cur);
+            }, 0);
+            return sum;  // 합계 반환 
+        }
+
+        // axis = 0 이면 열에 적용 , axis = 1 이면 행에 적용
+        // A -> B -> C  -> D 차례로 적용한다.
+        let new_series =  df.apply(new_data, {axis: 0}); // Series를 반환한다. 
+        new_series.print();
+        // 결론: apply()를 적용하면 새로운 시리즈를 반환한다. 
+
+
+
+    </script>
+    
+</head>
+
+
+<body>
+    <h1>06. apply #02</h1>
+</body>
+</html>

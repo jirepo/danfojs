@@ -27,14 +27,25 @@
                 { A: "1", B: '', C: "3", D: "4" },
                 { A: "1", B: '', C: "3", D: "4" },
                 { A: "1", B: '', C: "3", D: "4" }];
-    
                 
         df = new dfd.DataFrame(json_data)
         df.print();
         df.fillNa('-', { inplace: true }); 
         // null string인 경우 값이 채워지지 않는다. 
         df.print();
-    
+
+        json_data = [
+            {A: 1, B: NaN, C:3},
+            {A: 1, B: NaN, C:3},
+            {A: 1, B: NaN, C:3}
+        ]
+        df = new dfd.DataFrame(json_data)
+        df.print();
+        // B열의 NaN 값을 채워보자 
+        // NaN은 숫자값이 아니다. 
+        // 특정값이 NaN인지 확인은 isNaN(값)을 사용한다. 
+        df.fillNa(0, { columns: ["B"], inplace: true });
+        df.print();
     
     </script>
     
